@@ -1,0 +1,13 @@
+
+Y
+java:S1128"Remove this duplicated import.8šÃêÓ2b 81264b185066cf98c02f3694728c6051h
+q
+java:S1128"6Remove this unused import 'com.mongodb.ServerAddress'.8šÃêÓ2b 4e17def0c333de555f7fd177167b89c6h
+v	java:S125>"<This block of commented-out lines of code should be removed.8†«¼ş1b f013fa305251733753796625fe9f6550h
+Y
+java:S1128"Remove this duplicated import.8šÃêÓ2b e77b139002961317a14e4bed09dbda05h
+secrets:S6694>"PMake sure this MongoDB database password gets changed and removed from the code.8†«¼ş1b 0e698a8ffc1a0af622c7b4db3cb750cch
+s
+java:S1128"8Remove this unused import 'com.mongodb.MongoCredential'.8šÃêÓ2b 11751ef2332a0d6c1b566fa7e63aee5dh
+u
+java:S1161;":Add the "@Override" annotation above this method signature8†«¼ş1b b84fd09cb61ca7e1ddec2ca043227191h

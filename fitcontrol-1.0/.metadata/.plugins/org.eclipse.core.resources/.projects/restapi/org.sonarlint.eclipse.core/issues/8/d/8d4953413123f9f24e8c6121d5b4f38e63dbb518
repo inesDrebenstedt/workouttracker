@@ -1,0 +1,19 @@
+
+r
+java:S1068"7Remove this unused "primaryMuscleGroups" private field.8¡ñĞ½ş1b 811816bab7b3b57a6f461e995e5f3998h
+d
+java:S1068")Remove this unused "title" private field.8¡ñĞ½ş1b d5d3db1765287eef77d7927cc956f50ah
+m
+java:S1135*"2Complete the task associated to this TODO comment.8î¨æü2b 2962b767993b7c1532553d58c890d1d8h
+y
+java:S1155#">Use isEmpty() to check whether the collection is empty or not.8¦€©ñÿ1b 38e70931b36aac1efaeb8d42c1e47095h
+c
+java:S1068"(Remove this unused "sets" private field.8¹®ÛÃş1b 178d51026dbd6d8bb32b7749ab888930h
+f
+java:S1168*"+Return an empty collection instead of null.8î¨æü2b 37a6259cc0c1dae299a7866489dff0bdh
+a
+java:S1068"&Remove this unused "id" private field.8¹®ÛÃş1b b80bb7740288fda1f201890375a60c8fh
+i
+java:S1172)".Remove this unused method parameter "workout".8î¨æü2b 7b9adf12706377b03d6d35fddcbffd37h
+t
+java:S1068"9Remove this unused "secondaryMuscleGroups" private field.8¡ñĞ½ş1b 2284da4c7b5adb6532a6a41906cacd95h

@@ -1,0 +1,29 @@
+
+p
+java:S2209"5Change this instance-reference to a static reference.8˜Íğÿ1b 8966151e54b592877a57c8fb9abe7d2dh
+c
+java:S1068"(Remove this unused "reps" private field.8€¤àÃş1b 25832fb37a069b852d5ec384e7ed69ech
+g
+java:S1068",Remove this unused "exercise" private field.8á£ğÿ1b 97e96b9b630acd157725fa00eff11a80h
+e
+java:S1068"*Remove this unused "weight" private field.8€¤àÃş1b 7edabf994b76a00cbc60c95af337db8fh
+a
+java:S1068"&Remove this unused "id" private field.8€¤àÃş1b b80bb7740288fda1f201890375a60c8fh
+c
+java:S1068"(Remove this unused "unit" private field.8€¤àÃş1b 3e34bdebd9bd5edda27e8728904a2552h
+k
+java:S1068"0Remove this unused "numberOfReps" private field.8˜Íğÿ1b 17d0e2247877ce8b31784a9edde56bf2h
+j
+java:S1068"/Remove this unused "description" private field.8˜Íğÿ1b 67daf92c833c41c95db874e18fcb2786h
+v	java:S125"<This block of commented-out lines of code should be removed.8·“èü2b 1f688b63d04fa93a61422575dd0495e4h
+m
+java:S1135"2Complete the task associated to this TODO comment.8·“èü2b 607078c2fb2b4cd1a006abda3bcf231ch
+i
+java:S1172*".Remove this unused method parameter "workout".8·“èü2b 7b9adf12706377b03d6d35fddcbffd37h
+f
+java:S1168,"+Return an empty collection instead of null.8·“èü2b 37a6259cc0c1dae299a7866489dff0bdh
+v	java:S125+"<This block of commented-out lines of code should be removed.8·“èü2b 6bf76757d56af031bf54b6a571885ff8h
+m
+java:S1135+"2Complete the task associated to this TODO comment.8·“èü2b db55efc0b3c8278be5ea08bcd9b20b42h
+v
+java:S1128";Remove this unused import 'de.fitcontrol.domain.model.Rep'.8·“èü2b 9c8a2116dc2e3ec722263eef5d5b9865h

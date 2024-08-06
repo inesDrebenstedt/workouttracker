@@ -1,0 +1,200 @@
+package de.fitcontrol.domain.service;
+
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
+
+import de.fitcontrol.domain.model.Exercise;
+import de.fitcontrol.domain.model.ExerciseSet;
+import de.fitcontrol.domain.model.Rep;
+import de.fitcontrol.domain.model.Workout;
+import de.fitcontrol.domain.model.enums.MuscleGroup;
+import de.fitcontrol.domain.model.enums.RepCategory;
+import de.fitcontrol.domain.model.enums.WeightUnit;
+
+public class TestDataMocks {
+	
+	public static Set<Rep> repsMockLIst = new HashSet<>();
+	
+	public static void initializeReps () {
+		for (int i = 1; i < 13; i++ ) {
+			repsMockLIst.add(
+					Rep.builder()
+					.category(RepCategory.full_ROM)
+					.build()
+					);
+		}
+	}
+	
+	public static Set<Rep> getRepsList () {
+		initializeReps ();
+		return repsMockLIst;
+	}
+	
+	
+	public static Map<String, ExerciseSet> exerciseSetMockList = new HashMap<>();
+	
+	public static void initializeExerciseSetMockList(Optional<Exercise> exercise) {
+		for (int i = 1; i < 4; i++ ) {
+			exerciseSetMockList.put(
+					"exerciseSet" + String.valueOf(i),
+					ExerciseSet.builder()
+					.description("exerciseSet" + String.valueOf(i) + " test description")
+					.exercise(exercise.get())
+					.id("ExerciseSet"+i)
+					.numberOfReps(12)
+					.unit(WeightUnit.kg)
+					.weight(2.0)
+					.build()
+					);
+			//initially, when a new Exercise set is created, it has zero reps.
+			//reps are only to be created when the Exercise set already exists.
+		}
+	}
+	
+	public static Map<String, ExerciseSet> getClearedExerciseSetList (Optional<Exercise> exercise) {
+		initializeExerciseSetMockList(exercise);
+		
+		return exerciseSetMockList;
+	}
+	
+	
+	public static Exercise getClearedExercise() {
+		return Exercise.builder()
+				.id("zottmanCurls")
+				.primaryMuscleGroups(List.of(MuscleGroup.Biceps_Brachialis, MuscleGroup.Biceps_Brachioradialis))
+				.secondaryMuscleGroups(List.of(MuscleGroup.Flexor_Digitorum))
+				.title("zottmanCurls")
+				.build();
+		//initially created, a new exercise set has no rep count yet
+	}
+	
+	
+	public static ExerciseSet getClearedExerciseSet() {
+		return ExerciseSet.builder()
+				.id("exerciseSetMock1")
+				.description("exerciseSetMock1Description")
+				.numberOfReps(12)
+				.weight(10.0)
+				.unit(WeightUnit.kg)
+				.build();
+	}
+
+	
+//	public static Workout workoutMock1 = Workout.builder()
+//			.id("workout1")
+//			.title("TestWorkout1")
+//			.date(LocalDateTime.now())
+//			.duration(Duration.ofHours(1L))
+//			.build();
+	
+	
+	public static Workout getClearedWorkout () {
+		Workout workoutMock1 = Workout.builder()
+				.id("workout1")
+				.title("TestWorkout1")
+				.date(LocalDateTime.now())
+				.duration(Duration.ofHours(1L))
+				.build();
+		return workoutMock1;
+		//When new workout is created, it initially has no exercises.
+	}
+	
+	public static Exercise getBlankBicepsExercise (String exerciseId, String exerciseTitle) {
+		Exercise  exercise = 
+				Exercise.builder()
+				.id(exerciseId)
+				.primaryMuscleGroups(List.of(MuscleGroup.Biceps_Brachialis, MuscleGroup.Biceps_Brachioradialis))
+				.secondaryMuscleGroups(List.of(MuscleGroup.Flexor_Digitorum))
+				.title(exerciseTitle)
+				.build();
+				
+		return exercise;
+	}
+	
+	public static Map<String, Workout> wourkoutsInDBMock = new HashMap<>();
+		
+	public static void saveWorkout (Workout workout) {
+		wourkoutsInDBMock.put(workout.getId(), workout);
+	}
+	
+	public static Workout getSavedWorkout (String workoutId) {
+		return wourkoutsInDBMock.get(workoutId);
+	}
+	
+	public static void clearWorkoutData () {
+		wourkoutsInDBMock = new HashMap<>();
+	}
+	
+	public static void clearRepData () {
+		repsMockLIst = new HashSet<>();
+	}
+	
+	
+	/*
+	public static List<Rep> reps = new ArrayList<>();
+	
+	public static void initializeRepsList() {
+		for (int i = 0; i < 13; i++ ) {
+			reps.add(
+					Rep.builder()
+					.category(RepCategory.full_ROM)
+					.exerciseSet(exerciseSetMock1)
+					.ordinalNumber(i+1)
+					.build()
+					);
+		}
+	}
+	
+	public static List<ExerciseSet> exerciseSetMockList = new ArrayList<>();
+	
+	public static void initializeExerciseSetMockList() {
+		for (int i = 0; i < 13; i++ ) {
+			exerciseSetMockList.add(
+					ExerciseSet.builder()
+					.description(null)
+					.exercise(exerciseMock1)
+					.id("ExerciseSet"+i)
+					.numberOfReps(12)
+					.reps(reps)
+					.unit(WeightUnit.kg)
+					.weight(2.0)
+					.build()
+					);
+		}
+	}
+	
+	
+	public static Exercise exerciseMock1 = Exercise.builder()
+											.id("exerciseMock1")
+											.sets(exerciseSetMockList)
+											.primaryMuscleGroups(List.of(MuscleGroup.Biceps_Brachialis, MuscleGroup.Biceps_Brachioradialis))
+											.secondaryMuscleGroups(List.of(MuscleGroup.Flexor_Digitorum))
+											.title("exerciseMock1")
+											.build();
+	
+	public static ExerciseSet exerciseSetMock1 = ExerciseSet.builder()
+											.id("exerciseSetMock1")
+											.numberOfReps(reps.size())
+											.reps(reps)
+											.description("testDescriptionExerciseSet1")
+											.exercise(exerciseMock1)
+											.unit(WeightUnit.kg)
+											.weight(10.0)
+											.build();
+
+	
+	public static Workout workoutMock1 = Workout.builder()
+			.id("workout1")
+			.exercises(List.of(exerciseMock1))
+			.title("TestWorkout1")
+			.date(LocalDateTime.now())
+			.duration(Duration.ofHours(1L))
+			.build();
+*/
+}

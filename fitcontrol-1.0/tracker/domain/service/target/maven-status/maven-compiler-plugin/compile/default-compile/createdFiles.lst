@@ -1,0 +1,5 @@
+de\fitcontrol\domain\service\ExerciseService.class
+de\fitcontrol\domain\service\ExerciseSetService.class
+de\fitcontrol\domain\service\ports\ExerciseRepository.class
+de\fitcontrol\domain\service\ports\WorkoutRepository.class
+de\fitcontrol\domain\service\WorkoutService.class

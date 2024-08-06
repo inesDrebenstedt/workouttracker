@@ -1,0 +1,18 @@
+package de.fitcontrol.tracker.config;
+
+import org.springframework.core.convert.converter.Converter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+public class ArrayListToMapConverter implements Converter<ArrayList<Object>, Map<String, Object>> {
+
+    @Override
+    public Map<String, Object> convert(ArrayList<Object> source) {
+        Map<String, Object> map = new HashMap<>();
+        for (int i = 0; i < source.size(); i++) {
+            map.put(String.valueOf(i), source.get(i));
+        }
+        return map;
+    }
+}

@@ -1,0 +1,112 @@
+package de.fitcontrol.domain.service.unittests;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import java.util.Optional;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import de.fitcontrol.domain.model.Exercise;
+import de.fitcontrol.domain.model.ExerciseSet;
+import de.fitcontrol.domain.model.Workout;
+import de.fitcontrol.domain.service.TestDataMocks;
+import de.fitcontrol.domain.service.WorkoutService;
+import de.fitcontrol.domain.service.ports.WorkoutRepository;
+
+@ExtendWith(MockitoExtension.class)
+public class WorkoutServiceTest {
+	
+	
+    @Mock
+    private WorkoutRepository workoutRepo;
+
+    @InjectMocks
+    private WorkoutService workoutService;
+    
+    Workout workoutWithTestData;
+    Exercise zottmanCurls;
+    ExerciseSet newSet;
+    
+
+    @BeforeEach
+    public void setUp() {
+    	zottmanCurls = TestDataMocks.zottmanCurls;
+    	newSet = TestDataMocks.exerciseSetMock1;
+    	workoutWithTestData = TestDataMocks.resetWorkout();
+    }
+    
+    @Test
+    void testCreateWorkout() {
+    	Workout newWorkout = workoutService.createWorkout(workoutWithTestData);
+    	
+    	verify(workoutRepo).save(newWorkout);
+    	TestDataMocks.saveWorkout(newWorkout);
+    	when(workoutRepo.findById(newWorkout.getId()))
+		.thenReturn(Optional.of(TestDataMocks.getSavedWorkout(newWorkout.getId())));
+
+    	assertEquals(workoutRepo.findById(newWorkout.getId()).get().getId(), workoutWithTestData.getId());
+    }
+    
+    @Test
+    void testAddExercise () {
+    	Workout newWorkout = workoutService.createWorkout(workoutWithTestData);
+    	newWorkout.addExercise(zottmanCurls);
+    	TestDataMocks.saveWorkout(newWorkout);
+    	
+    	assertEquals(1, TestDataMocks.getSavedWorkout(newWorkout.getId()).getExercises().size());
+    	assertEquals(zottmanCurls.getTitle(), TestDataMocks.getSavedWorkout(newWorkout.getId()).getExercises().get(zottmanCurls.getId()).getTitle());
+    }
+    
+    @Test
+    void testAddExerciseSet () {
+    	
+    	Workout newWorkout = workoutService.createWorkout(workoutWithTestData);    	
+    	TestDataMocks.saveWorkout(newWorkout);
+    	
+    	assertEquals(0, TestDataMocks.getSavedWorkout(newWorkout.getId()).getExercises().size());
+    	newWorkout = TestDataMocks.getSavedWorkout(newWorkout.getId());
+    	newWorkout.addExercise(zottmanCurls);
+    	TestDataMocks.saveWorkout(newWorkout);
+    	
+    	assertEquals(0, TestDataMocks.getSavedWorkout(newWorkout.getId()).getExercises().get(zottmanCurls.getId()).getSets().size());
+
+    	newWorkout.addExerciseSet(zottmanCurls, newSet);
+    	TestDataMocks.saveWorkout(newWorkout);
+    	
+    	assertEquals(1, TestDataMocks.getSavedWorkout(newWorkout.getId()).getExercises().get(zottmanCurls.getId()).getSets().size());
+    	assertEquals(TestDataMocks.exerciseSetMock1.getId(), TestDataMocks.getSavedWorkout(newWorkout.getId()).getExercises().get(zottmanCurls.getId()).getSets().get(newSet.getId()).getId());
+    }
+    
+  
+    @Test
+    void testAddExerciseRep () {
+   	
+    	//1. create workout with initially 0 Exercises:
+    	Workout newWorkout = workoutService.createWorkout(workoutWithTestData);
+    	TestDataMocks.saveWorkout(newWorkout);
+    	assertEquals(0, TestDataMocks.getSavedWorkout(newWorkout.getId()).getExercises().size());
+    	//2. add 1 exercise with initially 0 sets:
+    	newWorkout.addExercise(zottmanCurls);
+    	TestDataMocks.saveWorkout(newWorkout);
+    	assertEquals(1, TestDataMocks.getSavedWorkout(newWorkout.getId()).getExercises().size());
+    	assertEquals(0, TestDataMocks.getSavedWorkout(newWorkout.getId()).getExercises().get(zottmanCurls.getId()).getSets().size());
+   }
+    
+    
+    
+	@AfterEach
+	void cleanup() {
+		TestDataMocks.clearWorkoutData();
+		TestDataMocks.clearRepData();
+	}
+	
+
+}

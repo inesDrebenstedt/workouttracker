@@ -1,0 +1,84 @@
+package de.fitcontrol.domain.model;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import de.fitcontrol.domain.model.enums.MuscleGroup;
+import jakarta.persistence.OneToMany;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.SuperBuilder;
+
+@Document(collection = "exercises")
+@SuperBuilder
+@NoArgsConstructor
+public class Exercise {
+	
+	
+	
+    @Id
+    @Getter
+    private String id;
+	
+	public Exercise(
+			@JsonProperty("sets") Map<String, ExerciseSet> sets, 
+			@JsonProperty("title") String title, 
+			@JsonProperty("description") String description,
+			@JsonProperty("primaryMuscleGroups") List<MuscleGroup> primaryMuscleGroups, 
+			@JsonProperty("secondaryMuscleGroups") List<MuscleGroup> secondaryMuscleGroups
+			) {
+		this.sets = sets;
+		this.title = title;
+		this.description = description;
+		this.primaryMuscleGroups = primaryMuscleGroups;
+		this.secondaryMuscleGroups = secondaryMuscleGroups;
+	}
+
+	@Setter
+	@OneToMany
+	private Map<String, ExerciseSet> sets;
+	
+	@Getter
+	@Setter
+	private String title;
+	
+	@Getter
+	@Setter
+	private String description;
+	
+	@Getter
+	@Setter
+	@OneToMany
+	private List<MuscleGroup> primaryMuscleGroups;
+	
+	@Getter
+	@Setter
+	@OneToMany
+	private List<MuscleGroup> secondaryMuscleGroups;
+
+	public Map<String, ExerciseSet> getSets() {
+		if (this.sets == null) {
+			this.sets = new HashMap<String, ExerciseSet>();
+		}
+		return sets;
+	}
+
+//	@Override
+//	public String toString() {
+//		return "Exercise [id=" + id + ", sets=" + sets.size() + ", title=" + title + ", description=" + description
+//				+ ", primaryMuscleGroups=" + primaryMuscleGroups + ", secondaryMuscleGroups=" + secondaryMuscleGroups
+//				+ "]";
+//	}
+//	
+	
+	
+	
+}

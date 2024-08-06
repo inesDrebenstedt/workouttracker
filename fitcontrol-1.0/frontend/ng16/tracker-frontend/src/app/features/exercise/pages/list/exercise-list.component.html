@@ -1,0 +1,9 @@
+
+<h1>EXERCISE LIST WORKS!</h1>
+<mat-grid-list cols="4" rowHeight="100px" gutterSize="70px" *ngFor="let exercise of exercises">
+    <mat-grid-tile
+      (click) = "onTileClick()"
+      [style.background]= " 'lightblue' ">
+      {{exercise.title}}
+    </mat-grid-tile>
+  </mat-grid-list>

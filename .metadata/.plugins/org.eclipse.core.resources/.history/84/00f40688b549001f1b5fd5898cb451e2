@@ -1,0 +1,182 @@
+package de.fitcontrol.domain.service.unittests;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import java.util.Optional;
+import java.util.Set;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import de.fitcontrol.domain.model.Exercise;
+import de.fitcontrol.domain.model.ExerciseSet;
+import de.fitcontrol.domain.model.Rep;
+import de.fitcontrol.domain.model.Workout;
+import de.fitcontrol.domain.model.enums.RepCategory;
+import de.fitcontrol.domain.service.TestDataMocks;
+import de.fitcontrol.domain.service.WorkoutService;
+import de.fitcontrol.domain.service.ports.WorkoutRepository;
+
+@ExtendWith(MockitoExtension.class)
+public class WorkoutServiceTest {
+	
+	
+    @Mock
+    private WorkoutRepository workoutRepo;
+
+    @InjectMocks
+    private WorkoutService workoutService;
+    
+    Workout workoutWithTestData;
+    Exercise zottmanCurls;
+    ExerciseSet newSet;
+    
+
+    @BeforeEach
+    public void setUp() {
+    	zottmanCurls = TestDataMocks.zottmanCurls;
+    	newSet = TestDataMocks.exerciseSetMock1;
+    	workoutWithTestData = TestDataMocks.resetWorkout();
+    }
+    
+    // REQ-WORKOUT-BE-1.1
+    @Test
+    void testCreateWorkout() {
+    	Workout newWorkout = workoutService.createWorkout(workoutWithTestData);
+    	
+    	verify(workoutRepo).save(newWorkout);
+    	TestDataMocks.saveWorkout(newWorkout);
+    	when(workoutRepo.findById(newWorkout.getId()))
+		.thenReturn(Optional.of(TestDataMocks.getSavedWorkout(newWorkout.getId())));
+
+    	assertEquals(workoutRepo.findById(newWorkout.getId()).get().getId(), workoutWithTestData.getId());
+    }
+    
+    // REQ-WORKOUT-BE-1.2
+    @Test
+    void testAddExercise () {
+    	Workout newWorkout = workoutService.createWorkout(workoutWithTestData);
+    	newWorkout.addExercise(zottmanCurls);
+    	TestDataMocks.saveWorkout(newWorkout);
+    	
+    	assertEquals(1, TestDataMocks.getSavedWorkout(newWorkout.getId()).getExercises().size());
+    	assertEquals(zottmanCurls.getTitle(), TestDataMocks.getSavedWorkout(newWorkout.getId()).getExercises().get(zottmanCurls.getId()).getTitle());
+    }
+    
+    // REQ-WORKOUT-BE-1.3
+    @Test
+    void testAddExerciseSet () {
+    	
+    	Workout newWorkout = workoutService.createWorkout(workoutWithTestData);    	
+    	TestDataMocks.saveWorkout(newWorkout);
+    	
+    	assertEquals(0, TestDataMocks.getSavedWorkout(newWorkout.getId()).getExercises().size());
+    	newWorkout = TestDataMocks.getSavedWorkout(newWorkout.getId());
+    	Exercise newExercise = TestDataMocks.getBlankBicepsExercise("bicepsExercise", "bicepsExerciseTitle");
+    	newWorkout.addExercise(newExercise);
+    	TestDataMocks.saveWorkout(newWorkout);
+    	
+    	assertEquals(0, TestDataMocks.getSavedWorkout(newWorkout.getId()).getExercises().get(newExercise.getId()).getSets().size());
+
+    	newWorkout.addExerciseSet(newExercise, newSet);
+    	TestDataMocks.saveWorkout(newWorkout);
+    	
+    	assertEquals(1, TestDataMocks.getSavedWorkout(newWorkout.getId()).getExercises().get(newExercise.getId()).getSets().size());
+    	assertEquals(newSet.getId(), TestDataMocks.getSavedWorkout(newWorkout.getId()).getExercises().get(newExercise.getId()).getSets().get(newSet.getId()).getId());
+    }
+    
+    // REQ-WORKOUT-BE-1.4
+    @Test
+    void testAddExerciseRep () {
+   	
+    	//1. create workout with initially 0 Exercises:
+    	Workout newWorkout = workoutService.createWorkout(workoutWithTestData);
+    	TestDataMocks.saveWorkout(newWorkout);
+    	assertEquals(0, TestDataMocks.getSavedWorkout(newWorkout.getId()).getExercises().size());
+    	//2. add 1 exercise with initially 0 sets:
+    	newWorkout.addExercise(zottmanCurls);
+    	TestDataMocks.saveWorkout(newWorkout);
+    	assertEquals(1, TestDataMocks.getSavedWorkout(newWorkout.getId()).getExercises().size());
+    	assertEquals(0, TestDataMocks.getSavedWorkout(newWorkout.getId()).getExercises().get(zottmanCurls.getId()).getSets().size());
+    	//3. add 1 set with 0 reps to the exercise:
+    	newWorkout.addExerciseSet(zottmanCurls, newSet);
+    	TestDataMocks.saveWorkout(newWorkout);
+    	assertEquals(1, TestDataMocks.getSavedWorkout(newWorkout.getId()).getExercises().get(zottmanCurls.getId()).getSets().size());
+    	assertEquals(0, TestDataMocks.getSavedWorkout(newWorkout.getId()).getExercises().get(zottmanCurls.getId()).getSets().get(newSet.getId()).getReps().size());
+    	//4. add 12 reps to the set previously given to the exercise:
+    	newWorkout.addReps(newSet, TestDataMocks.getRepsList());
+    	assertEquals(12, TestDataMocks.getSavedWorkout(newWorkout.getId()).getExercises().get(zottmanCurls.getId()).getSets().get(newSet.getId()).getReps().size());
+
+    }
+    
+    // REQ-WORKOUT-BE-1.5
+    @Test
+    void testUpdateReps () {
+    	Workout newWorkout = workoutService.createWorkout(workoutWithTestData);
+    	newWorkout.addExercise(zottmanCurls);
+    	newWorkout.addExerciseSet(zottmanCurls, newSet);
+    	newWorkout.addReps(newSet, TestDataMocks.getRepsList());
+    	TestDataMocks.saveWorkout(newWorkout);
+
+    	assertEquals(12, TestDataMocks.getSavedWorkout(newWorkout.getId()).getExercises().get(zottmanCurls.getId()).getSets().get(newSet.getId()).getReps().size());
+    	Rep newRep = Rep.builder()
+    			.category(RepCategory.eccentric_partial)
+    			.build();
+    	newWorkout.addReps(newSet, Set.of(newRep));
+    	assertEquals(13, TestDataMocks.getSavedWorkout(newWorkout.getId()).getExercises().get(zottmanCurls.getId()).getSets().get(newSet.getId()).getReps().size());
+    	newWorkout.deleteReps(newSet, Set.of(newRep));
+    	assertEquals(12, TestDataMocks.getSavedWorkout(newWorkout.getId()).getExercises().get(zottmanCurls.getId()).getSets().get(newSet.getId()).getReps().size());
+    //TODO warum geht das hier ohne TestDataMocks.saveWorkout(newWorkout);?
+    }
+    
+    // REQ-WORKOUT-BE-1.9
+    @Test
+    void testDeleteExerciseSet () {
+    	Workout newWorkout = workoutService.createWorkout(workoutWithTestData);
+    	newWorkout.addExercise(zottmanCurls);
+    	newWorkout.addExerciseSet(zottmanCurls, newSet);
+    	newWorkout.addReps(newSet, TestDataMocks.getRepsList());
+    	TestDataMocks.saveWorkout(newWorkout);
+    	assertEquals(1, TestDataMocks.getSavedWorkout(newWorkout.getId()).getExercises().get(zottmanCurls.getId()).getSets().size());
+    	assertEquals(12, TestDataMocks.getSavedWorkout(newWorkout.getId()).getExercises().get(zottmanCurls.getId()).getSets().get(newSet.getId()).getReps().size());
+    	newWorkout.deleteExerciseSet(zottmanCurls, newSet);
+    	TestDataMocks.saveWorkout(newWorkout);
+
+    	assertEquals(0, TestDataMocks.getSavedWorkout(newWorkout.getId()).getExercises().get(zottmanCurls.getId()).getSets().size());
+    }
+    
+    // REQ-WORKOUT-BE-1.10
+    @Test
+    void testDeleteExerciseS () {
+    	Workout newWorkout = workoutService.createWorkout(workoutWithTestData);
+    	newWorkout.addExercise(zottmanCurls);
+    	newWorkout.addExerciseSet(zottmanCurls, newSet);
+    	newWorkout.addReps(newSet, TestDataMocks.getRepsList());
+    	TestDataMocks.saveWorkout(newWorkout);
+    	assertEquals(1, TestDataMocks.getSavedWorkout(newWorkout.getId()).getExercises().size());
+    	assertEquals(1, TestDataMocks.getSavedWorkout(newWorkout.getId()).getExercises().get(zottmanCurls.getId()).getSets().size());
+    	assertEquals(12, TestDataMocks.getSavedWorkout(newWorkout.getId()).getExercises().get(zottmanCurls.getId()).getSets().get(newSet.getId()).getReps().size());
+    	newWorkout.deleteExercise(zottmanCurls);
+    	TestDataMocks.saveWorkout(newWorkout);
+
+    	assertEquals(0, TestDataMocks.getSavedWorkout(newWorkout.getId()).getExercises().size());
+    }
+    
+    
+    
+	@AfterEach
+	void cleanup() {
+		TestDataMocks.clearWorkoutData();
+		TestDataMocks.clearRepData();
+	}
+	
+
+}

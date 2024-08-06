@@ -1,0 +1,17 @@
+
+f
+java:S1128"+Remove this unused import 'java.util.UUID'.8óúÕ2b a21f7f95996a0ffefc572cf90cf50fdeh
+a
+java:S1452""&Remove usage of generic wildcard type.8¦úŒÛú1b d1457b72c3fb323a2671125aef3eab5dh
+r
+java:S3655;"7Call "Optional#isPresent()" before accessing the value.8ÒÛĞÕ2b 479e9b617ce0f3fc90411aa9f0c67b45h
+{
+java:S4684("@Replace this persistent entity with a simple POJO or DTO object.8ÁÀ½ıû1b 7b9adf12706377b03d6d35fddcbffd37h
+}
+java:S6813"BRemove this field injection and use constructor injection instead.8ı‡€Ûú1b 0132ec8cee01c5dd244e1a60fe6448a1h
+{
+java:S4684@"@Replace this persistent entity with a simple POJO or DTO object.8ÁÀ½ıû1b 7b9adf12706377b03d6d35fddcbffd37h
+}
+java:S6813"BRemove this field injection and use constructor injection instead.8ÛÛğÿ1b 0132ec8cee01c5dd244e1a60fe6448a1h
+{
+java:S4684""@Replace this persistent entity with a simple POJO or DTO object.8Ñ²Š–’2b 25ea2b70f4ac6bcd41ffc0acbf699efah

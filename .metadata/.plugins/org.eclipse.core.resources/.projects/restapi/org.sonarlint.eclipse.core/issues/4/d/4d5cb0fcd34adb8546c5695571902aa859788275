@@ -1,0 +1,13 @@
+
+t
+java:S46842"@Replace this persistent entity with a simple POJO or DTO object.b 7b9adf12706377b03d6d35fddcbffd37h
+Z
+java:S1452 "&Remove usage of generic wildcard type.b d1457b72c3fb323a2671125aef3eab5dh
+v
+java:S6813"BRemove this field injection and use constructor injection instead.b 0132ec8cee01c5dd244e1a60fe6448a1h
+t
+java:S4684&"@Replace this persistent entity with a simple POJO or DTO object.b 97e96b9b630acd157725fa00eff11a80h
+¢
+java:S1130,"nRemove the declaration of thrown exception 'java.sql.SQLException', as it cannot be thrown from method's body.b ad249e05eb304d96ade91e500634f62ah
+t
+java:S4684 "@Replace this persistent entity with a simple POJO or DTO object.b 97e96b9b630acd157725fa00eff11a80h

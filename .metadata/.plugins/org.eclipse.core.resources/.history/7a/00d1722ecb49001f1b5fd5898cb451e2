@@ -1,0 +1,5 @@
+package de.fitcontrol.tracker.config;
+
+public class ArrayListToMapConverter {
+
+}

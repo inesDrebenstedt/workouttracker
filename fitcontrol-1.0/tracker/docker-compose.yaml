@@ -1,0 +1,38 @@
+networks:
+  mongodb_network:
+    driver: bridge
+    
+services:
+ mongodb:
+  image: mongo
+  container_name: fitcontrol-mongodb
+  ports:
+   - 27017:27017
+  volumes:
+   - data:/data
+  environment:
+   - MONGO_INITDB_ROOT_USERNAME=admin
+   - MONGO_INITDB_ROOT_PASSWORD=pass
+  networks:
+   - mongodb_network   
+ mongo-express:
+  image: mongo-express
+  container_name: mongo-express
+  restart: always
+  ports:
+   - 8081:8081
+  environment:
+   - ME_CONFIG_MONGODB_ADMINUSERNAME=admin
+   - ME_CONFIG_MONGODB_ADMINPASSWORD=pass 
+   - ME_CONFIG_MONGODB_SERVER=fitcontrol-mongodb
+  networks:
+   - mongodb_network
+   
+volumes: 
+   data: {}
+
+#networks:
+#   default:
+#    name: mongodb_network
+    
+# docker-compose up --build --force-recreate --renew-anon-volumes

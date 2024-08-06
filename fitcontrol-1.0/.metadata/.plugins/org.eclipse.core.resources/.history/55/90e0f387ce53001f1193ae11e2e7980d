@@ -1,0 +1,85 @@
+package de.fitcontrol.domain.model;
+
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import de.fitcontrol.domain.model.enums.MuscleGroup;
+import de.fitcontrol.domain.model.enums.WeightUnit;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.SuperBuilder;
+
+@Document(collection = "exercisesets")
+@SuperBuilder
+@NoArgsConstructor
+
+public class ExerciseSet {
+	
+
+	
+    @Id
+    @Getter
+    private String id;
+	
+    @JsonCreator
+	public ExerciseSet(
+			@JsonProperty("weight") Double weight, 
+			@JsonProperty("unit")	WeightUnit unit, 
+			@JsonProperty("unit")	Map<String, Rep> reps, 
+			@JsonProperty("description")	String description,
+			@JsonProperty("numberOfReps")	Integer numberOfReps, 
+			@JsonProperty("exercise")	Exercise exercise
+			) {
+		this.weight = weight;
+		this.unit = unit;
+		this.reps = reps;
+		this.description = description;
+		this.numberOfReps = numberOfReps;
+		this.exercise = exercise;
+	}
+
+	@Getter
+	@Setter
+	private Double weight;
+	
+	@Getter
+	@Setter
+	private WeightUnit unit;
+	
+	@Setter
+	@OneToMany
+	private Map<String, Rep> reps;
+	
+	@Getter
+	@Setter
+	private String description;
+	
+	@Getter
+	@Setter
+	private Integer numberOfReps;
+	
+	@ManyToOne
+	@Getter
+	private Exercise exercise;
+
+	public Map<String, Rep> getReps () {
+		if (this.reps == null) {
+			this.reps = new HashMap<String, Rep>();
+		}
+		return reps;
+	}
+
+}

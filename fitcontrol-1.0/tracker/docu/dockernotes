@@ -1,0 +1,74 @@
+To check various settings and configurations related to Docker and containers on Windows, you can use a combination of Docker commands and standard network diagnostic tools. Here's a list of commands you can run from the Windows command prompt (cmd) or PowerShell to check the settings and diagnose issues:
+
+1. **List Docker Containers**:
+   ```cmd
+   docker ps -a
+   ```
+   This command lists all Docker containers, including their status and ports they are exposed to.
+
+2. **Inspect Docker Container**:
+   ```cmd
+   docker inspect <container_name_or_id>
+   ```
+   Replace `<container_name_or_id>` with the name or ID of the Docker container you want to inspect. This command provides detailed information about the container, including its network configuration.
+
+3. **List Docker Networks**:
+   ```cmd
+   docker network ls
+   ```
+   This command lists all Docker networks created on your system.
+
+4. **Inspect Docker Network**:
+   ```cmd
+   docker network inspect <network_name_or_id>
+   ```
+   Replace `<network_name_or_id>` with the name or ID of the Docker network you want to inspect. This command provides detailed information about the network, including its containers and configuration.
+
+5. **Check IP Address of Docker Container**:
+   ```cmd
+   docker inspect -f "{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}" <container_name_or_id>
+   ```
+   This command retrieves the IP address of the specified Docker container.
+
+6. **Ping Docker Container**:
+   ```cmd
+   ping <container_ip_address>
+   ```
+   Replace `<container_ip_address>` with the IP address of the Docker container you want to ping. This command checks if your host machine can communicate with the Docker container over the network.
+
+7. **Flush DNS Cache** (Windows PowerShell):
+   ```powershell
+   Clear-DnsClientCache
+   ```
+   This command flushes the DNS resolver cache on Windows, which can sometimes resolve DNS resolution issues.
+
+8. **Check Hosts File** (Windows PowerShell):
+   ```powershell
+   Get-Content C:\Windows\System32\drivers\etc\hosts
+   ```
+   This command displays the contents of the hosts file, which can be used to manually map hostnames to IP addresses.
+
+By running these commands, you can gather information about your Docker containers, networks, and network configurations, as well as diagnose any network-related issues that may be affecting connectivity between your containers.
+
+
+Ensure MongoDB User Creation with Correct Mechanism:
+Make sure that the MongoDB user is created with the correct authentication mechanism. You can do this by connecting to the running MongoDB instance and using the MongoDB shell.
+
+sh
+
+docker exec -it my-mongodb mongo
+
+Once inside the MongoDB shell:
+
+js
+
+use admin
+db.createUser({
+  user: "rootuser",
+  pwd: "rootpass",
+  roles: [{ role: "userAdminAnyDatabase", db: "admin" }],
+  mechanisms: ["SCRAM-SHA-1"]
+})
+
+Update Spring Application Configuration:
+Ensure your Spring application’s configuration is set up to connect to MongoDB using the correct credentials.

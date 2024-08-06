@@ -1,0 +1,11 @@
+package de.fitcontrol.domain.service.ports;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import de.fitcontrol.domain.model.Exercise;
+
+@Repository
+public interface ExerciseRepository extends MongoRepository<Exercise, Long>{
+
+}

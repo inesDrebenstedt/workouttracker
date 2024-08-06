@@ -1,0 +1,13 @@
+de\fitcontrol\domain\model\enums\RepCategory.class
+de\fitcontrol\domain\model\enums\MuscleGroup.class
+de\fitcontrol\domain\model\Exercise.class
+de\fitcontrol\domain\model\ExerciseSet.class
+de\fitcontrol\domain\model\Workout$1.class
+de\fitcontrol\domain\model\Exercise$ExerciseBuilderImpl.class
+de\fitcontrol\domain\model\Exercise$1.class
+de\fitcontrol\domain\model\Workout$WorkoutBuilder.class
+de\fitcontrol\domain\model\Exercise$ExerciseBuilder.class
+de\fitcontrol\domain\model\Rep.class
+de\fitcontrol\domain\model\Workout$WorkoutBuilderImpl.class
+de\fitcontrol\domain\model\enums\WeightUnit.class
+de\fitcontrol\domain\model\Workout.class

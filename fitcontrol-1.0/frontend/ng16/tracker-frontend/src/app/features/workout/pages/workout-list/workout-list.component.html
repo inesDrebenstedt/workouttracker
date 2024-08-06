@@ -1,0 +1,8 @@
+<mat-grid-list cols="4" rowHeight="100px" gutterSize="70px" *ngFor="let workout of workouts">
+    <mat-grid-tile
+      (click) = "onTileClick()"
+      [style.background]= " 'lightblue' ">
+      {{workout.title}}
+    </mat-grid-tile>
+  </mat-grid-list>
+  

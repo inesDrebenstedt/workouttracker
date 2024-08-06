@@ -1,0 +1,17 @@
+
+k
+java:S3655;"7Call "Optional#isPresent()" before accessing the value.b 479e9b617ce0f3fc90411aa9f0c67b45h
+v
+java:S6813"BRemove this field injection and use constructor injection instead.b 0132ec8cee01c5dd244e1a60fe6448a1h
+v
+java:S6813"BRemove this field injection and use constructor injection instead.b 0132ec8cee01c5dd244e1a60fe6448a1h
+t
+java:S4684""@Replace this persistent entity with a simple POJO or DTO object.b 7b9adf12706377b03d6d35fddcbffd37h
+Z
+java:S1452""&Remove usage of generic wildcard type.b d1457b72c3fb323a2671125aef3eab5dh
+t
+java:S4684("@Replace this persistent entity with a simple POJO or DTO object.b 7b9adf12706377b03d6d35fddcbffd37h
+t
+java:S4684@"@Replace this persistent entity with a simple POJO or DTO object.b 7b9adf12706377b03d6d35fddcbffd37h
+_
+java:S1128"+Remove this unused import 'java.util.UUID'.b a21f7f95996a0ffefc572cf90cf50fdeh
