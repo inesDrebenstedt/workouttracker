@@ -10,6 +10,7 @@ import { Workout } from 'src/app/core/model/workout';
 export class WorkoutService {
 
   private apiUrl = `${environment.apiBaseUrl}/workout`;
+  workout: Workout | undefined;
 
   constructor(private http: HttpClient) { }
 
@@ -18,7 +19,13 @@ export class WorkoutService {
   }
 
   getWorkout(id: string): Observable<Workout> {
-    return this.http.get<Workout>(`${this.apiUrl}/${id}`);
+    return this.http.get<Workout>(`${this.apiUrl}/singleworkout?workoutId=${id}`);
+  }
+
+  getWorkoutId(id: string): void {
+    this.getWorkout(id).subscribe(workout => {
+      this.workout = workout;
+    });
   }
 
 }

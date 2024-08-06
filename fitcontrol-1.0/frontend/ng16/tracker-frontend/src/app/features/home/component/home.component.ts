@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
- homeTitle: string = 'Home Page';
+ navbarTitle: string = 'Home Page';
  widgetTitles: Array<string> = ["Workouts list", "Create Workout", "Exercise List", "Create Exercise"];
 
 }

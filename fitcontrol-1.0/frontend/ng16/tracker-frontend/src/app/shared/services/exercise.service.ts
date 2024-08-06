@@ -21,4 +21,17 @@ export class ExerciseService {
     return this.http.get<Exercise>(`${this.apiUrl}/${id}`);
   }
 
+  createExercise(id: string): Observable<Exercise> {
+    return this.http.get<Exercise>(`${this.apiUrl}/${id}`);
+  }
+
+  updateExercise(id: string): Observable<Exercise> {
+    return this.http.get<Exercise>(`${this.apiUrl}/${id}`);
+  }
+
+  deleteExercise(id: string): Observable<Exercise> {
+    return this.http.get<Exercise>(`${this.apiUrl}/${id}`);
+  }
+
+
 }

@@ -1,1 +1,36 @@
 <p>workout-create works!</p>
+
+<!-- my-component.component.html 
+<div *ngIf="data$ | async as data">
+    <h1>{{ data.name }}</h1>
+    <button mat-raised-button color="primary" (click)="addB()">Add B</button>
+  
+    <mat-accordion>
+      <mat-expansion-panel *ngFor="let b of data.list">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ b.name }}
+          </mat-panel-title>
+          <mat-panel-description>
+            <button mat-icon-button (click)="deleteB(b.id)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+  
+        <div>
+          <h3>C Items</h3>
+          <button mat-raised-button color="accent" (click)="addC(b.id)">Add C</button>
+          <ul>
+            <li *ngFor="let c of b.items">
+              {{ c.name }}
+              <button mat-icon-button (click)="deleteC(b.id, c.id)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </li>
+          </ul>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+  

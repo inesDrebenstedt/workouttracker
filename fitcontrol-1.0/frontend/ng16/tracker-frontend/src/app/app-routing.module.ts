@@ -11,7 +11,7 @@ import { ExerciseDetailsComponent } from './features/exercise/pages/details/exer
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'workout/all', component: WorkoutListComponent },
-  { path: 'workout/:id', component: WorkoutDetailComponent },
+  { path: 'workout/singleworkout', component: WorkoutDetailComponent },
   { path: 'exercise/all', component: ExerciseListComponent },
   { path: 'exercise/:id', component: ExerciseDetailsComponent },
 ];

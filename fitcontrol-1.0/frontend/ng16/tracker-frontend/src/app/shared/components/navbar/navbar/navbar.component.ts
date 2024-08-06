@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
+import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
+import { WorkoutService } from 'src/app/shared/services/workout.service';
 
 @Component({
   selector: 'app-navbar',
@@ -8,11 +9,15 @@ import { Router, NavigationEnd } from '@angular/router';
 })
 export class NavbarComponent {
   //@Input('navbarTitle') 
-  navbarTitle: string = 'default navbar title';
+  navbarTitle: string = ' ';
 
   currentUrl: string = '';
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router, 
+    private route: ActivatedRoute, 
+    private workoutService: WorkoutService,
+  ) {}
 
   ngOnInit() {
     this.router.events.subscribe(event => {
@@ -25,15 +30,38 @@ export class NavbarComponent {
   }
 
 
+  getWorkoutTitle(): string {
+    this.route.queryParams.subscribe(params => {
+      const id = params['workoutId'];
+      if (id) {
+        this.workoutService.getWorkout(id).subscribe(workout => {
+          this.navbarTitle = workout.title;
+        });
+      }
+    });
+    return this.navbarTitle;
+  }
+
+
+
   updateTitleBar(): string {
+
+    if (this.currentUrl.includes('/workout/singleworkout')) {
+      return this.getWorkoutTitle();
+    }
+    
     switch(this.currentUrl) {
+      case '/':
+        return 'Home Page of Workout Tracker';
+
       case '/workout/all':
-        console.log('CASE 1 ' + this.currentUrl);
-        return 'List of Workouts';
+        console.log('updateTitleBar CASE 1 ' + this.currentUrl);
+          return 'List of Workouts';
 
         case '/workout/create':
           return 'Create new Workout';
     }
+
     return this.navbarTitle
   }
 

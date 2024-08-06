@@ -1,1 +1,53 @@
 <p>workout-detail works!</p>
+
+<!-- my-component.component.html -->
+<div *ngIf="workout">
+    <h1>{{ workout.title }}</h1>
+    <button 
+      class="add-exercise-button" 
+      mat-raised-button color="primary" 
+      (click)="addExercise()" >
+      Add Exercise
+    </button>
+    <!-- 
+    <button mat-raised-button color="primary" (click)="addExercise()">Add B</button>
+    -->
+  
+    <mat-accordion>
+      <mat-expansion-panel *ngFor="let exercise of workout.exercises">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ exercise.title }}
+          </mat-panel-title>
+          <mat-panel-description>
+            <!--  
+            <button mat-icon-button (click)="deleteB(b.id)">
+            -->
+            <button mat-icon-button>
+              <mat-icon>delete</mat-icon>
+            </button>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+  
+        <div>
+          <h3>Sets</h3>
+          <!-- 
+          <button mat-raised-button color="accent" (click)="addC(b.id)">Add C</button>
+          -->
+          <button mat-raised-button color="accent" >Add Set</button>
+          <ul>
+            <li *ngFor="let set of exercise.sets">
+              {{ set.id }} unit: {{ set.unit }} reps: {{ set.numberOfReps }}
+              <!-- 
+              <button mat-icon-button (click)="deleteC(b.id, c.id)">
+              -->
+              <button mat-icon-button >
+                <mat-icon>delete</mat-icon>
+              </button>
+            </li>
+          </ul>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+  

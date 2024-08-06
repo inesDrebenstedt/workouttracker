@@ -3,8 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module'; 
 import { AppComponent } from './app.component';
 import { HomeModule } from './features/home/home.module';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './shared/material/material/material.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './shared/shared.module';
 import { WorkoutModule } from './features/workout/workout.module';
 import { HttpClientModule } from '@angular/common/http';
@@ -26,6 +26,7 @@ import { ExerciseService } from './shared/services/exercise.service';
     SharedModule,
     BrowserAnimationsModule,
     MaterialModule,
+
   ], 
   providers: [
     WorkoutService, 

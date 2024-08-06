@@ -20,7 +20,7 @@ export class WorkoutListComponent implements OnInit{
 	  exercises: [],
 	  title: 'Test workout 1',
     date: this.testDate,
-    durationInSeconds: 60 // Duration in minutes
+    duration: 60 // Duration in minutes
   };
 
   workout2: Workout = {
@@ -28,7 +28,7 @@ export class WorkoutListComponent implements OnInit{
 	  exercises: [],
 	  title: 'Test workout 2',
     date: this.testDate,
-    durationInSeconds: 60 // Duration in minutes
+    duration: 60 // Duration in minutes
   };
 
   fakeWorkouts: Workout[] = [this.workout1, this.workout2];
@@ -57,8 +57,9 @@ export class WorkoutListComponent implements OnInit{
   }
 
 
-  onTileClick(id: String)) {
-    this.router.navigate(['workout/' + id]);
+  onTileClick(workoutId: String): void {
+
+    this.router.navigate(['workout/singleworkout'], { queryParams: { workoutId: workoutId } });
   }
 
 }

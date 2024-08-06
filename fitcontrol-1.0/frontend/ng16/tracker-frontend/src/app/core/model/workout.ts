@@ -5,5 +5,5 @@ export interface Workout {
 	  exercises: Exercise[];
 	  title: string;
     date: Date;
-    durationInSeconds?: number; // Duration in minutes
+    duration?: number; // Duration in minutes
   }
