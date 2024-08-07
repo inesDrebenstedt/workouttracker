@@ -1,6 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { WorkoutService } from 'src/app/shared/services/workout.service';
+import { ExerciseService } from 'src/app/shared/services/exercise.service';
+
 
 @Component({
   selector: 'app-navbar',
@@ -10,13 +12,13 @@ import { WorkoutService } from 'src/app/shared/services/workout.service';
 export class NavbarComponent {
   //@Input('navbarTitle') 
   navbarTitle: string = ' ';
-
   currentUrl: string = '';
 
   constructor(
     private router: Router, 
     private route: ActivatedRoute, 
     private workoutService: WorkoutService,
+    private exerciseService: ExerciseService,
   ) {}
 
   ngOnInit() {
@@ -42,6 +44,17 @@ export class NavbarComponent {
     return this.navbarTitle;
   }
 
+  getExerciseTitle(): string {
+    this.route.queryParams.subscribe(params => {
+      const id = params['exerciseId'];
+      if (id) {
+        this.exerciseService.getExercise(id).subscribe(exercise => {
+          this.navbarTitle = exercise.title;
+        });
+      }
+    });
+    return this.navbarTitle;
+  }
 
 
   updateTitleBar(): string {
@@ -49,17 +62,27 @@ export class NavbarComponent {
     if (this.currentUrl.includes('/workout/singleworkout')) {
       return this.getWorkoutTitle();
     }
+
+    if (this.currentUrl.includes('/exercise/singleexercise')) {
+      return this.getExerciseTitle();
+    }
     
-    switch(this.currentUrl) {
+    switch (this.currentUrl) {
       case '/':
         return 'Home Page of Workout Tracker';
 
       case '/workout/all':
         console.log('updateTitleBar CASE 1 ' + this.currentUrl);
-          return 'List of Workouts';
+        return 'List of Workouts';
 
-        case '/workout/create':
-          return 'Create new Workout';
+      case '/workout/create':
+        return 'Create new Workout';
+
+      case '/exercise/all':
+        return 'All Exercises';
+
+      case '/exercise/create':
+        return 'Create new Exercise';
     }
 
     return this.navbarTitle

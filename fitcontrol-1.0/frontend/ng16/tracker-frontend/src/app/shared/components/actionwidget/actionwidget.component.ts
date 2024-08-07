@@ -9,10 +9,12 @@ import { Router, UrlSerializer, UrlTree   } from '@angular/router';
 export class ActionwidgetComponent {
   @Input('widgetTitle') widgetTitle: string = 'default action widget title';
   
-  constructor(private router: Router, private urlSerializer: UrlSerializer) { }
+  constructor(
+    private router: Router, 
+    private urlSerializer: UrlSerializer
+  ) { }
 
   onActionClick (event: MouseEvent, widgetTitle: string) {
-    alert('Event:' + event + ' ' + 'Clicked Widget Title:' + widgetTitle);
 
     switch (widgetTitle) {
       case 'Workouts list':

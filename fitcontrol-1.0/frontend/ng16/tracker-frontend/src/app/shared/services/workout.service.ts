@@ -22,10 +22,12 @@ export class WorkoutService {
     return this.http.get<Workout>(`${this.apiUrl}/singleworkout?workoutId=${id}`);
   }
 
+  /*
   getWorkoutId(id: string): void {
     this.getWorkout(id).subscribe(workout => {
       this.workout = workout;
     });
   }
+    */
 
 }

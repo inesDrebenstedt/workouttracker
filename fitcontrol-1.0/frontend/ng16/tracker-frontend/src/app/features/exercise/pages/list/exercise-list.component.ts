@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ExerciseService } from 'src/app/shared/services/exercise.service'; 
 import { ActivatedRoute } from '@angular/router';
 import { Exercise } from 'src/app/core/model/exercise';
+import { Router,  } from '@angular/router';
 
 
 @Component({
@@ -11,24 +12,27 @@ import { Exercise } from 'src/app/core/model/exercise';
 })
 export class ExerciseListComponent {
 
-  constructor(private exerciseService: ExerciseService, private route: ActivatedRoute) { }
+  constructor(
+    private exerciseService: ExerciseService, 
+    private route: ActivatedRoute,
+    private router: Router
+  ) { }
+  
+  navbarTitle: string = 'List of Exercises TODO';
   exercises: Exercise[] | undefined;
 
-  navbarTitle: string = 'List of Exercises';
-
   ngOnInit(): void {
-    console.log('inside ngOnInit() of WorkoutListComponent');
-
     this.exerciseService.getExercises().subscribe(data => {
       this.exercises = data;
-      console.log('call to BE: ' + this.exercises.length);
-      this.exercises.forEach(exercise => console.log('---> ' + exercise.title));
     });
 
   }
 
-  onTileClick() {
-
+  onTileClick(exerciseId: String): void {
+    this.router.navigate(['exercise/singleexercise'], 
+      { queryParams: { exerciseId: exerciseId } });
   }
+
+
 
 }

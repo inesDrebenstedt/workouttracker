@@ -10,6 +10,8 @@ import { Exercise } from 'src/app/core/model/exercise';
 export class ExerciseService {
 
   private apiUrl = `${environment.apiBaseUrl}/exercise`;
+  exercise: Exercise | undefined;
+
 
   constructor(private http: HttpClient) { }
 
@@ -18,7 +20,7 @@ export class ExerciseService {
   }
 
   getExercise(id: string): Observable<Exercise> {
-    return this.http.get<Exercise>(`${this.apiUrl}/${id}`);
+    return this.http.get<Exercise>(`${this.apiUrl}/singleexercise?exerciseId=${id}`);
   }
 
   createExercise(id: string): Observable<Exercise> {
@@ -32,6 +34,14 @@ export class ExerciseService {
   deleteExercise(id: string): Observable<Exercise> {
     return this.http.get<Exercise>(`${this.apiUrl}/${id}`);
   }
+
+  /*
+  getExerciseId(id: string): void {
+    this.getExercise(id).subscribe(exercise => {
+      this.exercise = exercise;
+    });
+  }
+    */
 
 
 }

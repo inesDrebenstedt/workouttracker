@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: 'workout/all', component: WorkoutListComponent },
   { path: 'workout/singleworkout', component: WorkoutDetailComponent },
   { path: 'exercise/all', component: ExerciseListComponent },
-  { path: 'exercise/:id', component: ExerciseDetailsComponent },
+  { path: 'exercise/singleexercise', component: ExerciseDetailsComponent },
 ];
 
 @NgModule({

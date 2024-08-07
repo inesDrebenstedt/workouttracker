@@ -1,9 +1,22 @@
-
-<h1>EXERCISE LIST WORKS!</h1>
-<mat-grid-list cols="4" rowHeight="100px" gutterSize="70px" *ngFor="let exercise of exercises">
-    <mat-grid-tile
-      (click) = "onTileClick()"
-      [style.background]= " 'lightblue' ">
-      {{exercise.title}}
-    </mat-grid-tile>
-  </mat-grid-list>
+<div>
+    <div class="create-exercise">
+      <app-actionwidget [widgetTitle]="'Create new Exercise'"></app-actionwidget>
+    </div>
+    <br>
+  
+    <div>
+      <mat-grid-list cols="4" rowHeight="100px" gutterSize="70px" *ngFor="let exercise of exercises">
+        <mat-grid-tile 
+        (click)="onTileClick(exercise.id  ?? '')" 
+        [style.background]=" '#f2a5c6' "
+        >
+  
+          <div class="tile-content">
+            <span class="exercise-title">{{exercise.title}}</span>
+            <mat-icon class="arrow-icon">arrow_forward</mat-icon>
+          </div>
+  
+        </mat-grid-tile>
+      </mat-grid-list>
+    </div>
+  </div>
